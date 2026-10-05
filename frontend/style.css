@@ -8,6 +8,9 @@ body {
 
 h1 {
     margin-bottom: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
 }
 
 h2 {

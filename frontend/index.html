@@ -1,111 +1,277 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aesthetic Island</title>
+
+    <title>Aesthetic Island | Consultation</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- this is my navigation bar -->
-    <nav>
-        <h2>AESTHETIC ISLAND</h2>
+    <!-- this is the top of my website -->
+    <header>
 
-        <div class="links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#consultation">Consultation</a>
+        <div class="topBar">
+            <p>PERSONALIZED AESTHETIC CARE</p>
+            <p>BROOKLYN, NEW YORK</p>
         </div>
-    </nav>
+
+        <!-- this is my navigation -->
+        <nav>
+
+            <h2>AESTHETIC ISLAND</h2>
+
+            <div class="links">
+                <a href="#home">Home</a>
+                <a href="#about">Our Process</a>
+                <a href="#consultation">Consultation</a>
+            </div>
+
+        </nav>
+
+    </header>
+
 
     <!-- this is my home section -->
     <section id="home" class="home">
 
         <div class="homeText">
-            <p>WELCOME TO AESTHETIC ISLAND</p>
 
-            <h1>Your Aesthetic Journey Starts Here</h1>
+            <p class="smallText">AESTHETIC ISLAND NYC</p>
 
-            <p>
-                Personalized skincare and aesthetic guidance
-                reviewed by a nurse practitioner.
+            <h1>
+                A considered approach
+                to aesthetic care.
+            </h1>
+
+            <p class="description">
+                Every face is different, and every treatment
+                should be personal. Tell us about your skin
+                concerns and receive guidance reviewed by
+                our nurse practitioner.
             </p>
 
             <a href="#consultation" class="mainButton">
-                Start Your Consultation
+                Request a Consultation
             </a>
+
+            <p class="bottomText">
+                PERSONALIZED CARE. THOUGHTFUL RESULTS.
+            </p>
+
         </div>
 
+
+        <!-- this is the picture on my homepage -->
         <div class="homeImage">
-            <img src="../images/hero.jpg" alt="Skincare and beauty">
+
+            <img src="../images/hero.jpg"
+                 alt="Aesthetic Island beauty model">
+
+            <p class="photoCaption">
+                AESTHETIC ISLAND — BEAUTY & WELLNESS
+            </p>
+
         </div>
 
     </section>
 
-    <!-- this is my about section -->
+
+    <!-- this is a small introduction section -->
+    <section class="intro">
+
+        <p class="smallText">WELCOME TO AESTHETIC ISLAND</p>
+
+        <h2>
+            Your skin deserves more than
+            a one-size-fits-all approach.
+        </h2>
+
+        <p>
+            We believe aesthetic care should begin with
+            understanding your individual concerns.
+            Our consultation process helps connect
+            you with professional guidance before
+            choosing a treatment.
+        </p>
+
+    </section>
+
+
+    <!-- this section explains how the website works -->
     <section id="about" class="about">
 
-        <h2>How It Works</h2>
+        <div class="sectionTitle">
+
+            <p class="smallText">THE PROCESS</p>
+
+            <h2>How it works</h2>
+
+            <p>
+                Three simple steps to get started.
+            </p>
+
+        </div>
+
 
         <div class="steps">
 
-            <div>
-                <h3>01. Share Your Concern</h3>
-                <p>Tell us what you would like help with.</p>
-            </div>
+            <!-- step one -->
+            <div class="step">
 
-            <div>
-                <h3>02. Nurse Practitioner Review</h3>
-                <p>A nurse practitioner reviews your request.</p>
-            </div>
+                <h3>01</h3>
 
-            <div>
-                <h3>03. Personalized Guidance</h3>
+                <h4>Tell us your concerns</h4>
+
                 <p>
-                    Receive information about possible treatments
-                    and skincare options.
+                    Complete a short form and let us know
+                    what you would like help with.
                 </p>
+
+            </div>
+
+
+            <!-- step two -->
+            <div class="step">
+
+                <h3>02</h3>
+
+                <h4>Professional review</h4>
+
+                <p>
+                    Your information is reviewed by
+                    a nurse practitioner who considers
+                    your individual concerns.
+                </p>
+
+            </div>
+
+
+            <!-- step three -->
+            <div class="step">
+
+                <h3>03</h3>
+
+                <h4>Personalized recommendations</h4>
+
+                <p>
+                    Learn about possible treatments,
+                    skincare products, and pricing
+                    based on your consultation.
+                </p>
+
             </div>
 
         </div>
 
     </section>
 
-    <!-- this is my consultation form -->
+
+    <!-- this is the consultation form -->
     <section id="consultation" class="consultation">
 
-        <h2>Start Your Consultation</h2>
-        <p>Fill out the form below to get started.</p>
+        <div class="formTitle">
+
+            <p class="smallText">BEGIN HERE</p>
+
+            <h2>Let's talk about your skin.</h2>
+
+            <p>
+                Tell us a little about yourself
+                and what you would like to improve.
+            </p>
+
+        </div>
+
 
         <form id="clientForm">
 
+            <!-- client name -->
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required>
 
+            <input type="text"
+                   id="name"
+                   name="name"
+                   placeholder="Enter your full name"
+                   required>
+
+
+            <!-- client phone number -->
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" required>
 
-            <label for="concern">What are you concerned about?</label>
-            <textarea id="concern" name="concern" required></textarea>
+            <input type="tel"
+                   id="phone"
+                   name="phone"
+                   placeholder="Enter your phone number"
+                   required>
 
+
+            <!-- client concerns -->
+            <label for="concern">What are your main concerns?</label>
+
+            <textarea id="concern"
+                      name="concern"
+                      rows="5"
+                      placeholder="Tell us what you would like help with..."
+                      required></textarea>
+
+
+            <!-- client picture -->
             <label for="photo">Upload a Photo</label>
-            <input type="file" id="photo" name="photo" accept="image/*" required>
 
-            <button type="submit">Submit for Review</button>
+            <input type="file"
+                   id="photo"
+                   name="photo"
+                   accept="image/*"
+                   required>
+
+
+            <p class="formNote">
+                Demo form for a student project.
+                Information is not currently submitted
+                or saved.
+            </p>
+
+
+            <!-- submit button -->
+            <button type="submit">
+                Submit Consultation Request
+            </button>
 
         </form>
 
     </section>
 
-    <!-- this is my footer -->
+
+    <!-- this is the bottom of my website -->
     <footer>
-        <p>Aesthetic Island</p>
+
+        <h2>AESTHETIC ISLAND</h2>
+
         <p>Personalized Aesthetic Care</p>
+
+        <p>Brooklyn, New York</p>
+
+        <div class="footerLinks">
+            <a href="#home">Home</a>
+            <a href="#about">Our Process</a>
+            <a href="#consultation">Consultation</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 Aesthetic Island.
+            Student Project Demonstration.
+        </p>
+
     </footer>
 
+
+    <!-- this connects my javascript file -->
     <script src="script.js"></script>
 
 </body>

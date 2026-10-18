@@ -1,35 +1,113 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aesthetic Island Portal</title>
+    <title>Aesthetic Island</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>Aesthetic Island</h1>
-<h2>Aesthetic Review & Recommendation Portal</h2>
+    <!-- this is my navigation bar -->
+    <nav>
+        <h2>AESTHETIC ISLAND</h2>
 
-<form id="clientForm">
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#consultation">Consultation</a>
+        </div>
+    </nav>
 
-    <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" required>
+    <!-- this is my home section -->
+    <section id="home" class="home">
 
-    <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" name="phone" required>
+        <div class="homeText">
+            <p>WELCOME TO AESTHETIC ISLAND</p>
 
-    <label for="concern">What are you concerned about or interested in?</label>
-    <textarea id="concern" name="concern" required></textarea>
+            <h1>Your Aesthetic Journey Starts Here</h1>
 
-    <label for="photo">Upload a Photo</label>
-    <input type="file" id="photo" name="photo" accept="image/*" required>
+            <p>
+                Personalized skincare and aesthetic guidance
+                reviewed by a nurse practitioner.
+            </p>
 
-    <button type="submit">Submit for Review</button>
+            <a href="#consultation" class="mainButton">
+                Start Your Consultation
+            </a>
+        </div>
 
-</form>
+        <div class="homeImage">
+            <img src="images/hero.jpg" alt="Skincare and beauty">
+        </div>
 
-<script src="script.js"></script>
+    </section>
+
+    <!-- this is my about section -->
+    <section id="about" class="about">
+
+        <h2>How It Works</h2>
+
+        <div class="steps">
+
+            <div>
+                <h3>01. Share Your Concern</h3>
+                <p>Tell us what you would like help with.</p>
+            </div>
+
+            <div>
+                <h3>02. Nurse Practitioner Review</h3>
+                <p>A nurse practitioner reviews your request.</p>
+            </div>
+
+            <div>
+                <h3>03. Personalized Guidance</h3>
+                <p>
+                    Receive information about possible treatments
+                    and skincare options.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- this is my consultation form -->
+    <section id="consultation" class="consultation">
+
+        <h2>Start Your Consultation</h2>
+        <p>Fill out the form below to get started.</p>
+
+        <form id="clientForm">
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="concern">What are you concerned about?</label>
+            <textarea id="concern" name="concern" required></textarea>
+
+            <label for="photo">Upload a Photo</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+
+            <button type="submit">Submit for Review</button>
+
+        </form>
+
+    </section>
+
+    <!-- this is my footer -->
+    <footer>
+        <p>Aesthetic Island</p>
+        <p>Personalized Aesthetic Care</p>
+    </footer>
+
+    <script src="script.js"></script>
 
 </body>
 </html>

@@ -1,29 +1,133 @@
+
+/* this is my main page style */
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f7f4ef;
-    margin: 0;
-    padding: 40px;
+    color: #38312d;
+}
+
+/* this is my navigation bar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: white;
+}
+
+nav h2 {
+    font-size: 20px;
+    letter-spacing: 3px;
+}
+
+.links a {
+    text-decoration: none;
+    color: #38312d;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+.links a:hover {
+    color: #b9a38e;
+}
+
+/* this is my home section */
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 70px 8%;
+    gap: 40px;
+}
+
+.homeText {
+    width: 50%;
+}
+
+.homeText h1 {
+    font-family: Georgia, serif;
+    font-size: 55px;
+    font-weight: normal;
+    line-height: 1.2;
+}
+
+.homeText p {
+    line-height: 1.8;
+}
+
+.mainButton {
+    display: inline-block;
+    background-color: #38312d;
+    color: white;
+    padding: 15px 25px;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.mainButton:hover {
+    background-color: #b9a38e;
+}
+
+.homeImage {
+    width: 45%;
+}
+
+.homeImage img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* this is my about section */
+.about {
+    background-color: white;
+    padding: 70px 8%;
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 5px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+.about h2 {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    font-weight: normal;
 }
 
-h2 {
+.steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.steps div {
+    width: 33%;
+    padding: 20px;
+    background-color: #f7f4ef;
+}
+
+.steps h3 {
+    font-family: Georgia, serif;
     font-weight: normal;
-    margin-bottom: 30px;
+}
+
+/* this is my consultation form */
+.consultation {
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.consultation h2 {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    font-weight: normal;
 }
 
 form {
     background-color: white;
     max-width: 500px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 10px;
+    margin: 30px auto;
+    padding: 35px;
     text-align: left;
+    border-radius: 5px;
 }
 
 label {
@@ -32,29 +136,70 @@ label {
     margin-bottom: 5px;
 }
 
-input,
-textarea {
+input, textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
 }
 
 textarea {
-    height: 100px;
+    height: 110px;
 }
 
 button {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     margin-top: 20px;
-    background-color: #222;
+    background-color: #38312d;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #444;
+    background-color: #b9a38e;
+}
+
+/* this is my footer */
+footer {
+    background-color: #38312d;
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+
+/* this is for smaller screens */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .links a {
+        margin: 10px;
+    }
+
+    .home {
+        flex-direction: column;
+        padding: 40px 8%;
+    }
+
+    .homeText, .homeImage {
+        width: 100%;
+    }
+
+    .homeText h1 {
+        font-size: 38px;
+    }
+
+    .steps {
+        flex-direction: column;
+    }
+
+    .steps div {
+        width: auto;
+    }
 }

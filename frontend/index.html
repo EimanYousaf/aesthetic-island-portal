@@ -12,7 +12,7 @@
 
 <body>
 
-    <!-- this is my navigation -->
+    <!-- this is my navigation bar -->
     <nav>
         <h2>AESTHETIC ISLAND</h2>
 
@@ -42,53 +42,81 @@
 
         </div>
 
+
         <!-- this is my homepage picture -->
         <div class="homeImage">
 
             <img src="../images/hero.jpg"
-                 alt="Aesthetic Island model">
+                 alt="Aesthetic Island featured model">
 
-            <p class="photoCaption">
-                ALYSSA GRASSIE
-            </p>
+            <!-- this is my featured client caption -->
+            <div class="photoCaption">
+
+                <h3>ALYSSA GRASSIE</h3>
+
+                <p>
+                    American Social Media Influencer,
+                    Model &amp; Reality Television Personality
+                </p>
+
+                <p class="clientText">Our Trusted Client</p>
+
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- this explains my website -->
+    <!-- this explains how my website works -->
     <section id="about" class="about">
 
         <h2>How it works</h2>
 
         <div class="steps">
 
+            <!-- first step -->
             <div class="step">
+
                 <h3>01</h3>
+
                 <h4>Tell us about your skin</h4>
+
                 <p>
                     Share your concerns and upload
                     a photo for review.
                 </p>
+
             </div>
 
+
+            <!-- second step -->
             <div class="step">
+
                 <h3>02</h3>
+
                 <h4>Personal review</h4>
+
                 <p>
                     A nurse practitioner reviews
                     your concerns.
                 </p>
+
             </div>
 
+
+            <!-- third step -->
             <div class="step">
+
                 <h3>03</h3>
+
                 <h4>Find your options</h4>
+
                 <p>
                     Explore treatments, products,
                     and pricing recommended for you.
                 </p>
+
             </div>
 
         </div>
@@ -105,26 +133,50 @@
             Tell us what you're looking for.
         </p>
 
+        <!-- this is my client form -->
         <form id="clientForm">
 
+            <!-- client name -->
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name"
-                   placeholder="Your name" required>
 
+            <input type="text"
+                   id="name"
+                   name="name"
+                   placeholder="Your name"
+                   required>
+
+
+            <!-- client phone number -->
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone"
-                   placeholder="Your phone number" required>
 
+            <input type="tel"
+                   id="phone"
+                   name="phone"
+                   placeholder="Your phone number"
+                   required>
+
+
+            <!-- client concerns -->
             <label for="concern">Your Concerns</label>
-            <textarea id="concern" name="concern"
+
+            <textarea id="concern"
+                      name="concern"
                       rows="4"
                       placeholder="What would you like help with?"
                       required></textarea>
 
-            <label for="photo">Upload a Photo</label>
-            <input type="file" id="photo" name="photo"
-                   accept="image/*" required>
 
+            <!-- client photo -->
+            <label for="photo">Upload a Photo</label>
+
+            <input type="file"
+                   id="photo"
+                   name="photo"
+                   accept="image/*"
+                   required>
+
+
+            <!-- this button will work when the backend is ready -->
             <button type="submit" disabled>
                 Consultation Submissions Coming Soon
             </button>
@@ -141,162 +193,15 @@
 
     <!-- this is my footer -->
     <footer>
+
         <h2>AESTHETIC ISLAND</h2>
+
         <p>© 2026 Aesthetic Island</p>
+
     </footer>
 
-    <script src="script.js"></script>
 
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Aesthetic Island</title>
-
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-    <!-- this is my navigation -->
-    <nav>
-        <h2>AESTHETIC ISLAND</h2>
-
-        <div class="links">
-            <a href="#home">Home</a>
-            <a href="#about">How It Works</a>
-            <a href="#consultation">Consultation</a>
-        </div>
-    </nav>
-
-
-    <!-- this is my homepage -->
-    <section id="home" class="home">
-
-        <div class="homeText">
-
-            <h1>Beauty, on your terms.</h1>
-
-            <p>
-                A more personal way to explore
-                aesthetic treatments and skincare.
-            </p>
-
-            <a href="#consultation" class="mainButton">
-                Explore Consultation
-            </a>
-
-        </div>
-
-        <!-- this is my homepage picture -->
-        <div class="homeImage">
-
-            <img src="../images/hero.jpg"
-                 alt="Aesthetic Island model">
-
-            <p class="photoCaption">
-                ALYSSA GRASSIE
-            </p>
-
-        </div>
-
-    </section>
-
-
-    <!-- this explains my website -->
-    <section id="about" class="about">
-
-        <h2>How it works</h2>
-
-        <div class="steps">
-
-            <div class="step">
-                <h3>01</h3>
-                <h4>Tell us about your skin</h4>
-                <p>
-                    Share your concerns and upload
-                    a photo for review.
-                </p>
-            </div>
-
-            <div class="step">
-                <h3>02</h3>
-                <h4>Personal review</h4>
-                <p>
-                    A nurse practitioner reviews
-                    your concerns.
-                </p>
-            </div>
-
-            <div class="step">
-                <h3>03</h3>
-                <h4>Find your options</h4>
-                <p>
-                    Explore treatments, products,
-                    and pricing recommended for you.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- this is my consultation section -->
-    <section id="consultation" class="consultation">
-
-        <h2>Let's get started.</h2>
-
-        <p class="formIntro">
-            Tell us what you're looking for.
-        </p>
-
-        <form id="clientForm">
-
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name"
-                   placeholder="Your name" required>
-
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone"
-                   placeholder="Your phone number" required>
-
-            <label for="concern">Your Concerns</label>
-            <textarea id="concern" name="concern"
-                      rows="4"
-                      placeholder="What would you like help with?"
-                      required></textarea>
-
-            <label for="photo">Upload a Photo</label>
-            <input type="file" id="photo" name="photo"
-                   accept="image/*" required>
-
-            <button type="submit" disabled>
-                Consultation Submissions Coming Soon
-            </button>
-
-            <p class="formNote">
-                Online submissions are not yet available.
-                Please do not enter or upload personal information.
-            </p>
-
-        </form>
-
-    </section>
-
-
-    <!-- this is my footer -->
-    <footer>
-        <h2>AESTHETIC ISLAND</h2>
-        <p>© 2026 Aesthetic Island</p>
-    </footer>
-
+    <!-- this connects my javascript -->
     <script src="script.js"></script>
 
 </body>

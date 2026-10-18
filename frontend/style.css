@@ -1,5 +1,5 @@
 
-/* this is the style for my whole website */
+/* this is my main website style */
 * {
     box-sizing: border-box;
 }
@@ -10,313 +10,229 @@ html {
 
 body {
     margin: 0;
-    background-color: #f8f6f2;
-    color: #302b27;
     font-family: Arial, sans-serif;
-    line-height: 1.6;
+    background-color: #f7f6f3;
+    color: #252521;
 }
 
-/* this is the top bar */
-.topBar {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 7%;
-    background-color: #e9e4dd;
-    font-size: 10px;
-    letter-spacing: 2px;
-}
-
-/* this is my navigation */
+/* navigation */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 7%;
-    border-bottom: 1px solid #e4ded6;
+    padding: 25px 7%;
+    background-color: #f7f6f3;
 }
 
 nav h2 {
-    font-size: 19px;
-    font-weight: 400;
-    letter-spacing: 4px;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 3px;
 }
 
 .links {
     display: flex;
-    gap: 30px;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
+    gap: 35px;
 }
 
 .links a {
-    font-size: 12px;
-    letter-spacing: 1px;
+    color: #252521;
+    text-decoration: none;
+    font-size: 13px;
 }
 
-a:hover {
-    color: #9a806c;
+.links a:hover {
+    color: #9c8976;
 }
 
-/* this is my homepage */
+/* homepage */
 .home {
     display: flex;
     align-items: center;
-    gap: 7%;
-    padding: 75px 7%;
+    gap: 8%;
+    padding: 40px 7% 100px;
 }
 
 .homeText {
-    width: 50%;
+    width: 45%;
 }
 
-.smallText {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #927a68;
-}
-
-.home h1 {
-    font-family: Georgia, serif;
-    font-size: 58px;
+.homeText h1 {
+    font-size: 76px;
     font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: -1px;
-    margin: 25px 0;
+    letter-spacing: -4px;
+    line-height: 1.05;
+    margin: 0 0 30px;
 }
 
-.description {
-    max-width: 440px;
-    font-size: 14px;
-    color: #68605a;
-    margin-bottom: 35px;
+.homeText p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #66635e;
+    max-width: 350px;
 }
 
 .mainButton {
     display: inline-block;
-    padding: 15px 28px;
-    background-color: #302b27;
+    margin-top: 25px;
+    padding: 15px 30px;
+    background-color: #292923;
     color: white;
-    font-size: 12px;
-    letter-spacing: 1px;
+    text-decoration: none;
+    font-size: 13px;
 }
 
 .mainButton:hover {
-    background-color: #927a68;
-    color: white;
+    background-color: #7d7063;
 }
 
-.bottomText {
-    margin-top: 65px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: #927a68;
-}
-
-/* this is my homepage picture */
+/* homepage picture */
 .homeImage {
-    width: 50%;
+    width: 55%;
 }
 
 .homeImage img {
     display: block;
     width: 100%;
-    height: 570px;
+    height: 650px;
     object-fit: cover;
 }
 
 .photoCaption {
-    margin-top: 12px;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 2px;
-    color: #82786f;
+    color: #77716a;
+    margin-top: 12px;
 }
 
-/* this is the introduction */
-.intro {
-    text-align: center;
-    padding: 100px 20px;
-    background-color: #ede8e1;
-}
-
-.intro h2 {
-    max-width: 700px;
-    margin: 20px auto;
-    font-family: Georgia, serif;
-    font-size: 40px;
-    font-weight: 400;
-    line-height: 1.2;
-}
-
-.intro > p:last-child {
-    max-width: 570px;
-    margin: 0 auto;
-    font-size: 14px;
-    color: #68605a;
-}
-
-/* this is the process section */
+/* how it works */
 .about {
     padding: 100px 7%;
+    background-color: #eae7e1;
 }
 
-.sectionTitle {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.sectionTitle h2,
-.formTitle h2 {
-    font-family: Georgia, serif;
-    font-size: 45px;
+.about h2 {
+    font-size: 42px;
     font-weight: 400;
-    margin: 10px 0;
-}
-
-.sectionTitle > p:last-child,
-.formTitle > p:last-child {
-    font-size: 14px;
-    color: #68605a;
+    margin-bottom: 60px;
 }
 
 .steps {
     display: flex;
-    gap: 35px;
+    gap: 50px;
 }
 
 .step {
     flex: 1;
-    border-top: 1px solid #b9aa9d;
-    padding-top: 25px;
+    border-top: 1px solid #b7b0a6;
+    padding-top: 20px;
 }
 
 .step h3 {
-    font-family: Georgia, serif;
-    font-size: 30px;
+    font-size: 16px;
     font-weight: 400;
-    color: #927a68;
+    color: #8a7866;
 }
 
 .step h4 {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
+    margin-top: 30px;
 }
 
 .step p {
-    font-size: 13px;
-    color: #68605a;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #66635e;
 }
 
-/* this is the consultation section */
+/* consultation */
 .consultation {
-    background-color: #ede8e1;
-    padding: 95px 20px;
+    padding: 100px 20px;
+    text-align: center;
 }
 
-.formTitle {
-    text-align: center;
-    margin-bottom: 40px;
+.consultation h2 {
+    font-size: 48px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.formIntro {
+    color: #77716a;
+    font-size: 15px;
+    margin-bottom: 45px;
 }
 
 form {
-    max-width: 570px;
+    max-width: 520px;
     margin: auto;
-    background-color: #f8f6f2;
-    padding: 45px;
+    text-align: left;
 }
 
 label {
     display: block;
+    font-size: 13px;
     margin-top: 22px;
-    margin-bottom: 8px;
-    font-size: 12px;
+    margin-bottom: 10px;
 }
 
 input,
 textarea {
     width: 100%;
-    padding: 13px;
-    border: 1px solid #d8cfc5;
-    background-color: white;
-    color: #302b27;
+    padding: 15px;
+    border: 1px solid #d7d3cb;
+    background-color: #fff;
     font-family: Arial, sans-serif;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 textarea {
     resize: vertical;
 }
 
-input[type="file"] {
-    background-color: transparent;
+button {
+    width: 100%;
+    padding: 18px;
+    margin-top: 30px;
+    background-color: #292923;
+    color: white;
+    border: none;
+    font-size: 13px;
+}
+
+button:disabled {
+    background-color: #a5a09a;
+    cursor: not-allowed;
 }
 
 .formNote {
-    font-size: 11px;
-    color: #786d64;
-    margin-top: 25px;
-}
-
-button {
-    width: 100%;
-    padding: 16px;
-    margin-top: 20px;
-    border: none;
-    background-color: #302b27;
-    color: white;
     font-size: 12px;
-    letter-spacing: 1px;
-    cursor: pointer;
+    color: #77716a;
+    line-height: 1.7;
 }
 
-button:hover {
-    background-color: #927a68;
-}
-
-/* this is the footer */
+/* footer */
 footer {
-    padding: 60px 7%;
-    background-color: #302b27;
+    padding: 55px 20px;
+    background-color: #292923;
     color: white;
     text-align: center;
 }
 
 footer h2 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
 }
 
 footer p {
     font-size: 12px;
-    color: #d0c5bb;
+    color: #c8c5c0;
 }
 
-.footerLinks {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    margin: 30px 0;
-}
-
-.footerLinks a {
-    font-size: 12px;
-}
-
-.copyright {
-    margin-top: 35px;
-    font-size: 10px;
-}
-
-/* this makes my website fit on phones */
+/* phone screen */
 @media (max-width: 768px) {
-
-    .topBar {
-        display: none;
-    }
 
     nav {
         flex-direction: column;
@@ -324,12 +240,12 @@ footer p {
     }
 
     .links {
-        gap: 18px;
+        gap: 20px;
     }
 
     .home {
         flex-direction: column;
-        padding: 45px 7%;
+        padding: 40px 7%;
     }
 
     .homeText,
@@ -337,29 +253,29 @@ footer p {
         width: 100%;
     }
 
-    .home h1 {
-        font-size: 42px;
+    .homeText h1 {
+        font-size: 50px;
+        letter-spacing: -2px;
+    }
+
+    .homeImage {
+        margin-top: 40px;
     }
 
     .homeImage img {
         height: auto;
     }
 
-    .bottomText {
-        margin-top: 35px;
-    }
-
-    .intro h2,
-    .sectionTitle h2,
-    .formTitle h2 {
-        font-size: 34px;
-    }
-
     .steps {
         flex-direction: column;
+        gap: 30px;
     }
 
-    form {
-        padding: 25px;
+    .about {
+        padding: 70px 7%;
+    }
+
+    .consultation h2 {
+        font-size: 38px;
     }
 }

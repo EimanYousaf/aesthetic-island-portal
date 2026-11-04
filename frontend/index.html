@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +47,7 @@
         <!-- this is my homepage picture -->
         <div class="homeImage">
 
-            <img src="../images/hero.jpg"
+            <img src="/images/hero.jpg"
                  alt="Aesthetic Island featured model">
 
             <!-- this is my featured client caption -->
@@ -133,6 +134,7 @@
             Tell us what you're looking for.
         </p>
 
+
         <!-- this is my client form -->
         <form id="clientForm">
 
@@ -176,7 +178,7 @@
                    required>
 
 
-            <!-- this button will work when the backend is ready -->
+            <!-- real submissions are not ready yet -->
             <button type="submit" disabled>
                 Consultation Submissions Coming Soon
             </button>
@@ -187,6 +189,63 @@
             </p>
 
         </form>
+
+
+        <!-- this is my test consultation section -->
+        <div class="testConsultation">
+
+            <h3>Test Consultation</h3>
+
+            <p>
+                This section is for testing my backend.
+                Do not enter real client information.
+            </p>
+
+
+            <!-- this form sends test data to python -->
+            <form id="testForm">
+
+                <label for="testConcern">
+                    Choose a test concern
+                </label>
+
+                <select id="testConcern" required>
+
+                    <option value="">
+                        Select a concern
+                    </option>
+
+                    <option value="dry skin">
+                        Dry Skin
+                    </option>
+
+                    <option value="acne">
+                        Acne
+                    </option>
+
+                    <option value="fine lines">
+                        Fine Lines
+                    </option>
+
+                    <option value="uneven skin tone">
+                        Uneven Skin Tone
+                    </option>
+
+                </select>
+
+
+                <!-- this button tests my backend -->
+                <button type="submit">
+                    Test Consultation
+                </button>
+
+            </form>
+
+
+            <!-- this displays my backend response -->
+            <p id="testResult" aria-live="polite"></p>
+
+        </div>
 
     </section>
 

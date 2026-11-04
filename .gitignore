@@ -1,0 +1,5 @@
+
+# local test database
+*.db
+*.db-journal
+__pycache__/

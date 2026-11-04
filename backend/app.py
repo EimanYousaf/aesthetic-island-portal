@@ -1,12 +1,13 @@
 
 from flask import Flask, jsonify, request, send_from_directory
 import sqlite3
+import os
 
 # create my backend
 app = Flask(__name__, static_folder="../frontend", static_url_path="")
 
-# my database file
-database = "consultations.db"
+# find my database
+database = os.path.join(os.path.dirname(__file__), "consultations.db")
 
 
 # create my database table
@@ -78,20 +79,18 @@ def consultation():
     else:
         return jsonify({"error": "invalid test concern"}), 400
 
-    # connect to my database
+    # save the test consultation
     connection = sqlite3.connect(database)
     cursor = connection.cursor()
 
-    # save my test consultation
     cursor.execute(
         "INSERT INTO consultations (concern, treatment, status) VALUES (?, ?, ?)",
-        (concern, treatment, "test")
+        (concern, treatment, "Pending")
     )
 
     connection.commit()
     connection.close()
 
-    # send information to my website
     return jsonify({
         "concern": concern,
         "treatment": treatment,
@@ -100,14 +99,14 @@ def consultation():
     })
 
 
-# show saved test consultations
+# get saved test consultations
 @app.route("/api/consultations")
 def get_consultations():
 
     connection = sqlite3.connect(database)
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM consultations")
+    cursor.execute("SELECT * FROM consultations ORDER BY id DESC")
     rows = cursor.fetchall()
 
     connection.close()
@@ -125,7 +124,47 @@ def get_consultations():
     return jsonify(consultations)
 
 
-# create my database when the app starts
+# update a test consultation status
+@app.route("/api/consultations/<int:consultation_id>/status", methods=["POST"])
+def update_status(consultation_id):
+
+    # get the new status
+    data = request.get_json(silent=True)
+
+    if not isinstance(data, dict):
+        return jsonify({"error": "invalid information"}), 400
+
+    new_status = data.get("status")
+
+    # only allow these three statuses
+    if new_status not in ["Pending", "Reviewed", "Completed"]:
+        return jsonify({"error": "invalid status"}), 400
+
+    # connect to my database
+    connection = sqlite3.connect(database)
+    cursor = connection.cursor()
+
+    # update the selected consultation
+    cursor.execute(
+        "UPDATE consultations SET status = ? WHERE id = ?",
+        (new_status, consultation_id)
+    )
+
+    # check if the consultation exists
+    if cursor.rowcount == 0:
+        connection.close()
+        return jsonify({"error": "consultation not found"}), 404
+
+    connection.commit()
+    connection.close()
+
+    return jsonify({
+        "message": "status updated successfully",
+        "status": new_status
+    })
+
+
+# create my database
 create_database()
 
 

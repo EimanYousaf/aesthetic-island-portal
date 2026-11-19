@@ -1,173 +1,230 @@
 
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory, session
+from werkzeug.utils import secure_filename
+from functools import wraps
 import sqlite3
 import os
+import secrets
 
-# create my backend
-app = Flask(__name__, static_folder="../frontend", static_url_path="")
+BASE = os.path.dirname(os.path.abspath(__file__))
+FRONTEND = os.path.abspath(os.path.join(BASE, "../frontend"))
+IMAGES = os.path.abspath(os.path.join(BASE, "../images"))
+UPLOADS = os.path.join(BASE, "uploads")
+DATABASE = os.path.join(BASE, "consultations.db")
 
-# find my database
-database = os.path.join(os.path.dirname(__file__), "consultations.db")
+os.makedirs(UPLOADS, exist_ok=True)
+
+app = Flask(__name__, static_folder=FRONTEND, static_url_path="")
+app.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
+
+NP_PASSWORD = os.environ.get("NP_PASSWORD")
 
 
-# create my database table
+def connect():
+    db = sqlite3.connect(DATABASE)
+    db.row_factory = sqlite3.Row
+    return db
+
+
 def create_database():
+    with connect() as db:
+        db.execute("""
+            CREATE TABLE IF NOT EXISTS consultations (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                concern TEXT NOT NULL,
+                treatment TEXT NOT NULL,
+                status TEXT NOT NULL,
+                name TEXT,
+                phone TEXT,
+                photo TEXT,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
 
-    connection = sqlite3.connect(database)
-    cursor = connection.cursor()
+        columns = [
+            row["name"]
+            for row in db.execute("PRAGMA table_info(consultations)")
+        ]
 
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS consultations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            concern TEXT NOT NULL,
-            treatment TEXT NOT NULL,
-            status TEXT NOT NULL
-        )
-    """)
-
-    connection.commit()
-    connection.close()
+        for name in ["name", "phone", "photo", "created_at"]:
+            if name not in columns:
+                db.execute(
+                    "ALTER TABLE consultations ADD COLUMN "
+                    + name + " TEXT"
+                )
 
 
-# show my website
+def np_required(function):
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        if not session.get("np"):
+            return jsonify({"error": "NP login required"}), 401
+        return function(*args, **kwargs)
+    return wrapper
+
+
+def recommendation(concern):
+    options = {
+        "dry skin": "Hydrating facials and moisturizing skincare may help with dry skin.",
+        "acne": "Acne skincare and a professional skin evaluation may help.",
+        "fine lines": "Botox may help certain expression lines. Microneedling may help some fine lines.",
+        "uneven skin tone": "Chemical peels or certain laser treatments may help with uneven skin tone."
+    }
+    return options.get(concern)
+
+
 @app.route("/")
 def home():
     return app.send_static_file("index.html")
 
 
-# show my images
 @app.route("/images/<path:filename>")
 def images(filename):
-    return send_from_directory("../images", filename)
+    return send_from_directory(IMAGES, filename)
 
 
-# check my backend
+@app.route("/dashboard.html")
+def dashboard_page():
+    if not session.get("np"):
+        return app.send_static_file("login.html")
+    return app.send_static_file("dashboard.html")
+
+
 @app.route("/api/status")
 def status():
-    return jsonify({
-        "project": "aesthetic island",
-        "status": "working"
-    })
+    return jsonify({"project": "Aesthetic Island", "status": "working"})
 
 
-# receive a test consultation
+@app.route("/api/login", methods=["POST"])
+def login():
+    data = request.get_json(silent=True) or {}
+    password = data.get("password", "")
+
+    if not NP_PASSWORD:
+        return jsonify({"error": "NP_PASSWORD is not configured"}), 503
+
+    if isinstance(password, str) and secrets.compare_digest(
+        password, NP_PASSWORD
+    ):
+        session.clear()
+        session["np"] = True
+        return jsonify({"message": "Login successful"})
+
+    return jsonify({"error": "Incorrect password"}), 401
+
+
+@app.route("/api/logout", methods=["POST"])
+def logout():
+    session.clear()
+    return jsonify({"message": "Logged out"})
+
+
 @app.route("/api/consultation", methods=["POST"])
 def consultation():
+    name = request.form.get("name", "").strip()
+    phone = request.form.get("phone", "").strip()
+    concern = request.form.get("concern", "").strip().lower()
+    photo = request.files.get("photo")
 
-    data = request.get_json(silent=True)
+    if not 2 <= len(name) <= 100:
+        return jsonify({"error": "Enter a valid name"}), 400
 
-    if not isinstance(data, dict):
-        return jsonify({"error": "invalid information"}), 400
+    if not 7 <= len(phone) <= 25:
+        return jsonify({"error": "Enter a valid phone number"}), 400
 
-    if set(data.keys()) != {"concern"}:
-        return jsonify({"error": "only test concerns are allowed"}), 400
+    treatment = recommendation(concern)
+    if not treatment:
+        return jsonify({"error": "Select a valid concern"}), 400
 
-    concern = data.get("concern", "")
+    filename = None
 
-    if concern == "dry skin":
-        treatment = "Hydrating facials and moisturizing skincare may help with dry skin."
+    if photo and photo.filename:
+        allowed = {"image/jpeg": ".jpg", "image/png": ".png"}
+        extension = allowed.get(photo.mimetype)
 
-    elif concern == "acne":
-        treatment = "Acne skincare and professional skin evaluations may help with acne concerns."
+        if not extension:
+            return jsonify({"error": "Only JPG or PNG photos allowed"}), 400
 
-    elif concern == "fine lines":
-        treatment = "Botox may help certain expression lines. Microneedling may help some fine lines."
+        header = photo.stream.read(8)
+        photo.stream.seek(0)
 
-    elif concern == "uneven skin tone":
-        treatment = "Chemical peels and certain laser treatments may help with uneven skin tone."
+        valid = (
+            header.startswith(b"\xff\xd8\xff")
+            if extension == ".jpg"
+            else header == b"\x89PNG\r\n\x1a\n"
+        )
 
-    else:
-        return jsonify({"error": "invalid test concern"}), 400
+        if not valid:
+            return jsonify({"error": "Invalid image file"}), 400
 
-    # save the test consultation
-    connection = sqlite3.connect(database)
-    cursor = connection.cursor()
+        filename = secrets.token_hex(16) + extension
+        photo.save(os.path.join(UPLOADS, filename))
 
-    cursor.execute(
-        "INSERT INTO consultations (concern, treatment, status) VALUES (?, ?, ?)",
-        (concern, treatment, "Pending")
-    )
-
-    connection.commit()
-    connection.close()
+    with connect() as db:
+        cursor = db.execute("""
+            INSERT INTO consultations
+            (name, phone, concern, treatment, status, photo)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (name, phone, concern, treatment, "Pending", filename))
+        consultation_id = cursor.lastrowid
 
     return jsonify({
-        "concern": concern,
+        "id": consultation_id,
         "treatment": treatment,
-        "message": "general educational information only. professional review is required.",
-        "status": "success"
-    })
+        "status": "Pending",
+        "message": "Consultation submitted for professional review."
+    }), 201
 
 
-# get saved test consultations
 @app.route("/api/consultations")
+@np_required
 def get_consultations():
+    with connect() as db:
+        rows = db.execute(
+            "SELECT * FROM consultations ORDER BY id DESC"
+        ).fetchall()
 
-    connection = sqlite3.connect(database)
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM consultations ORDER BY id DESC")
-    rows = cursor.fetchall()
-
-    connection.close()
-
-    consultations = []
-
-    for row in rows:
-        consultations.append({
-            "id": row[0],
-            "concern": row[1],
-            "treatment": row[2],
-            "status": row[3]
-        })
-
-    return jsonify(consultations)
+    return jsonify([dict(row) for row in rows])
 
 
-# update a test consultation status
+@app.route("/api/photos/<int:consultation_id>")
+@np_required
+def get_photo(consultation_id):
+    with connect() as db:
+        row = db.execute(
+            "SELECT photo FROM consultations WHERE id = ?",
+            (consultation_id,)
+        ).fetchone()
+
+    if not row or not row["photo"]:
+        return jsonify({"error": "Photo not found"}), 404
+
+    return send_from_directory(UPLOADS, row["photo"])
+
+
 @app.route("/api/consultations/<int:consultation_id>/status", methods=["POST"])
+@np_required
 def update_status(consultation_id):
-
-    # get the new status
-    data = request.get_json(silent=True)
-
-    if not isinstance(data, dict):
-        return jsonify({"error": "invalid information"}), 400
-
+    data = request.get_json(silent=True) or {}
     new_status = data.get("status")
 
-    # only allow these three statuses
     if new_status not in ["Pending", "Reviewed", "Completed"]:
-        return jsonify({"error": "invalid status"}), 400
+        return jsonify({"error": "Invalid status"}), 400
 
-    # connect to my database
-    connection = sqlite3.connect(database)
-    cursor = connection.cursor()
+    with connect() as db:
+        cursor = db.execute(
+            "UPDATE consultations SET status = ? WHERE id = ?",
+            (new_status, consultation_id)
+        )
 
-    # update the selected consultation
-    cursor.execute(
-        "UPDATE consultations SET status = ? WHERE id = ?",
-        (new_status, consultation_id)
-    )
+        if cursor.rowcount == 0:
+            return jsonify({"error": "Not found"}), 404
 
-    # check if the consultation exists
-    if cursor.rowcount == 0:
-        connection.close()
-        return jsonify({"error": "consultation not found"}), 404
-
-    connection.commit()
-    connection.close()
-
-    return jsonify({
-        "message": "status updated successfully",
-        "status": new_status
-    })
+    return jsonify({"status": new_status})
 
 
-# create my database
 create_database()
 
-
-# start my backend
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

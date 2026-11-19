@@ -16,6 +16,7 @@
         <a href="#about">About</a>
         <a href="#treatments">Treatments</a>
         <a href="#consultation">Consultation</a>
+        <a href="patient.html">Patient Portal</a>
         <a href="dashboard.html">NP Portal</a>
     </div>
 </nav>
@@ -36,7 +37,8 @@
     </div>
 
     <div class="homeImage">
-        <img src="../images/hero.jpg" alt="Aesthetic Island featured client">
+        <img src="../images/hero.jpg"
+             alt="Aesthetic Island featured client">
         <div class="photoCaption">
             <div>
                 <h3>ALYSSA GRASSIE</h3>
@@ -93,16 +95,19 @@
             <h3>Botox</h3>
             <p>May help soften certain expression lines and wrinkles.</p>
         </article>
+
         <article class="treatmentCard">
             <span>02 / SKINCARE</span>
             <h3>Hydrating Facials</h3>
             <p>Designed to refresh and hydrate the skin.</p>
         </article>
+
         <article class="treatmentCard">
             <span>03 / SKIN RENEWAL</span>
             <h3>Microneedling</h3>
             <p>May improve the appearance of some fine lines and texture.</p>
         </article>
+
         <article class="treatmentCard">
             <span>04 / COMPLEXION</span>
             <h3>Chemical Peels</h3>
@@ -119,13 +124,16 @@
     </p>
 
     <form id="clientForm">
+
         <label for="name">Full Name</label>
         <input id="name" name="name" type="text"
-               maxlength="100" placeholder="Your full name" required>
+               maxlength="100"
+               placeholder="Your full name" required>
 
         <label for="phone">Phone Number</label>
         <input id="phone" name="phone" type="tel"
-               maxlength="25" placeholder="Your phone number" required>
+               maxlength="25"
+               placeholder="Your phone number" required>
 
         <label for="concern">Your Main Concern</label>
         <select id="concern" name="concern" required>
@@ -134,11 +142,28 @@
             <option value="acne">Acne</option>
             <option value="fine lines">Fine Lines</option>
             <option value="uneven skin tone">Uneven Skin Tone</option>
+            <option value="other">Other</option>
         </select>
+
+        <label for="details">
+            Describe Your Concerns or Goals
+        </label>
+        <textarea
+            id="details"
+            name="details"
+            rows="5"
+            maxlength="2000"
+            placeholder="Tell Eva more about your skin concerns, treatments you're interested in, or questions you have..."
+        ></textarea>
+
+        <p class="formNote">
+            If you selected Other, please describe your concern.
+        </p>
 
         <label for="photo">Upload Photo (Optional)</label>
         <input id="photo" name="photo" type="file"
                accept="image/jpeg,image/png">
+
         <p class="formNote">JPG or PNG, maximum 5 MB.</p>
 
         <label class="consent">
@@ -157,16 +182,40 @@
         <button id="submitButton" type="submit">
             SUBMIT CONSULTATION
         </button>
+
         <p id="formMessage" role="status" aria-live="polite"></p>
     </form>
 
     <div id="resultCard" class="resultCard" hidden>
         <span class="eyebrow">YOUR CONSULTATION</span>
+
         <h3>Thank you for submitting.</h3>
+
         <p id="resultId"></p>
-        <h4>General treatment information</h4>
+
+        <h4>General Treatment Information</h4>
         <p id="resultTreatment"></p>
+
         <p>Your consultation is pending professional review.</p>
+
+        <h4>Your Private Access Code</h4>
+        <p>
+            Save this code. You will need it with your phone number
+            to check your consultation.
+        </p>
+
+        <p id="accessCode"
+           style="font-weight:bold;overflow-wrap:anywhere;"></p>
+
+        <button type="button" id="copyAccessCode">
+            COPY ACCESS CODE
+        </button>
+
+        <p>
+            <a href="patient.html" class="mainButton">
+                CHECK MY CONSULTATION
+            </a>
+        </p>
     </div>
 </section>
 

@@ -3,12 +3,22 @@ const form = document.getElementById("clientForm");
 const message = document.getElementById("formMessage");
 const button = document.getElementById("submitButton");
 const resultCard = document.getElementById("resultCard");
+const copyButton = document.getElementById("copyAccessCode");
+
+let currentAccessCode = "";
 
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
     const formData = new FormData(form);
     const photo = document.getElementById("photo").files[0];
+    const concern = document.getElementById("concern").value;
+    const details = document.getElementById("details").value.trim();
+
+    if (concern === "other" && !details) {
+        message.textContent = "Please describe your concern.";
+        return;
+    }
 
     if (photo && photo.size > 5 * 1024 * 1024) {
         message.textContent = "Photo must be smaller than 5 MB.";
@@ -38,6 +48,13 @@ form.addEventListener("submit", async function(event) {
         document.getElementById("resultTreatment").textContent =
             data.treatment;
 
+        currentAccessCode = data.access_code || "";
+
+        document.getElementById("accessCode").textContent =
+            currentAccessCode || "Access code unavailable";
+
+        copyButton.disabled = !currentAccessCode;
+
         resultCard.hidden = false;
         form.reset();
 
@@ -51,5 +68,18 @@ form.addEventListener("submit", async function(event) {
     } finally {
         button.disabled = false;
         button.textContent = "SUBMIT CONSULTATION";
+    }
+});
+
+copyButton.addEventListener("click", async function() {
+    if (!currentAccessCode) {
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(currentAccessCode);
+        copyButton.textContent = "COPIED!";
+    } catch (error) {
+        copyButton.textContent = "SELECT AND COPY THE CODE ABOVE";
     }
 });

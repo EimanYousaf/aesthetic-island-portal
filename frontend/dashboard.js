@@ -47,6 +47,52 @@ function addText(parent, tag, content) {
     return element;
 }
 
+function addField(parent, labelText, value, rows = 3) {
+    const wrapper = document.createElement("div");
+    wrapper.style.marginTop = "15px";
+
+    const label = document.createElement("label");
+    label.textContent = labelText;
+    label.style.display = "block";
+    label.style.marginBottom = "8px";
+
+    const textarea = document.createElement("textarea");
+    textarea.value = value || "";
+    textarea.rows = rows;
+    textarea.maxLength = 4000;
+    textarea.style.width = "100%";
+    textarea.style.padding = "12px";
+    textarea.style.border = "1px solid #c9beb1";
+    textarea.style.borderRadius = "5px";
+    textarea.style.background = "#fff";
+    textarea.style.color = "#222";
+    textarea.style.boxSizing = "border-box";
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(textarea);
+    parent.appendChild(wrapper);
+
+    return textarea;
+}
+
+function makeGreeting(consultation) {
+    const name = consultation.name || "there";
+    const concern = consultation.concern || "your skin concerns";
+
+    return (
+        "Hi " + name + ", this is your nurse practitioner, " +
+        "Eva Israilova, from Aesthetic Island.\n\n" +
+        "I see you're looking to improve " + concern + ". " +
+        "Thank you for sharing your concerns with us.\n\n" +
+        "Based on the information you provided, " +
+        "here are some treatment options we can discuss. " +
+        "A professional consultation is needed to determine " +
+        "which treatment is right for you.\n\n" +
+        "I look forward to helping you reach your goals!\n\n" +
+        "Eva Israilova, NP"
+    );
+}
+
 function showConsultations() {
     updateCounts();
     list.replaceChildren();
@@ -80,6 +126,10 @@ function showConsultations() {
         addText(card, "p", "Concern: " + consultation.concern);
         addText(card, "p", "Treatment information: " + consultation.treatment);
 
+        if (consultation.details) {
+            addText(card, "p", "Patient's message: " + consultation.details);
+        }
+
         if (consultation.created_at) {
             addText(card, "p", "Submitted: " + consultation.created_at + " UTC");
         }
@@ -93,6 +143,7 @@ function showConsultations() {
             card.appendChild(photoLink);
         }
 
+        // EXISTING STATUS CONTROLS
         const controls = document.createElement("div");
         controls.className = "statusControls";
 
@@ -107,15 +158,15 @@ function showConsultations() {
 
         select.value = consultation.status;
 
-        const button = document.createElement("button");
-        button.textContent = "Save Status";
+        const statusButton = document.createElement("button");
+        statusButton.textContent = "Save Status";
 
-        const message = document.createElement("p");
-        message.className = "saveMessage";
+        const statusMessage = document.createElement("p");
+        statusMessage.className = "saveMessage";
 
-        button.addEventListener("click", async function() {
-            button.disabled = true;
-            message.textContent = "Saving...";
+        statusButton.addEventListener("click", async function() {
+            statusButton.disabled = true;
+            statusMessage.textContent = "Saving...";
 
             try {
                 const response = await fetch(
@@ -137,15 +188,123 @@ function showConsultations() {
                 showConsultations();
 
             } catch (error) {
-                message.textContent = error.message;
-                button.disabled = false;
+                statusMessage.textContent = error.message;
+                statusButton.disabled = false;
             }
         });
 
         controls.appendChild(select);
-        controls.appendChild(button);
+        controls.appendChild(statusButton);
         card.appendChild(controls);
-        card.appendChild(message);
+        card.appendChild(statusMessage);
+
+        // NEW NP REVIEW SECTION
+        const reviewBox = document.createElement("div");
+        reviewBox.style.marginTop = "25px";
+        reviewBox.style.padding = "20px";
+        reviewBox.style.border = "1px solid #d8cec1";
+        reviewBox.style.background = "#f5f0e9";
+        reviewBox.style.borderRadius = "8px";
+
+        addText(reviewBox, "h3", "Eva's Personalized Review");
+
+        addText(
+            reviewBox,
+            "p",
+            "Write a message, recommend treatments, and enter prices."
+        );
+
+        const greetingField = addField(
+            reviewBox,
+            "Message to Patient",
+            consultation.np_message || "",
+            7
+        );
+
+        const generateButton = document.createElement("button");
+        generateButton.textContent = "Generate Greeting";
+        generateButton.type = "button";
+        generateButton.style.marginTop = "10px";
+
+        generateButton.addEventListener("click", function() {
+            if (greetingField.value.trim()) {
+                const confirmed = window.confirm(
+                    "Replace the current message with a new greeting?"
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+            }
+
+            greetingField.value = makeGreeting(consultation);
+        });
+
+        reviewBox.appendChild(generateButton);
+
+        const treatmentsField = addField(
+            reviewBox,
+            "Recommended Treatments",
+            consultation.np_treatments || "",
+            4
+        );
+
+        const pricesField = addField(
+            reviewBox,
+            "Treatment Prices",
+            consultation.np_prices || "",
+            3
+        );
+
+        const saveReviewButton = document.createElement("button");
+        saveReviewButton.textContent = "Save Review";
+        saveReviewButton.type = "button";
+        saveReviewButton.style.marginTop = "18px";
+
+        const reviewMessage = document.createElement("p");
+        reviewMessage.className = "saveMessage";
+
+        saveReviewButton.addEventListener("click", async function() {
+            saveReviewButton.disabled = true;
+            reviewMessage.textContent = "Saving review...";
+
+            try {
+                const response = await fetch(
+                    "/api/consultations/" + consultation.id + "/review",
+                    {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            message: greetingField.value.trim(),
+                            treatments: treatmentsField.value.trim(),
+                            prices: pricesField.value.trim()
+                        })
+                    }
+                );
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || "Could not save review.");
+                }
+
+                consultation.np_message = greetingField.value.trim();
+                consultation.np_treatments = treatmentsField.value.trim();
+                consultation.np_prices = pricesField.value.trim();
+                consultation.status = "Reviewed";
+
+                showConsultations();
+
+            } catch (error) {
+                reviewMessage.textContent = error.message;
+                saveReviewButton.disabled = false;
+            }
+        });
+
+        reviewBox.appendChild(saveReviewButton);
+        reviewBox.appendChild(reviewMessage);
+
+        card.appendChild(reviewBox);
         list.appendChild(card);
     }
 }

@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Patient Portal | Aesthetic Island</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .patientBox {
+            max-width: 650px;
+            margin: 120px auto 70px;
+            padding: 40px;
+            background: #f5f0e9;
+            border: 1px solid #d8cec1;
+            border-radius: 12px;
+        }
+
+        .patientBox h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .patientBox label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .patientBox input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #bdb4aa;
+            border-radius: 5px;
+            background: white;
+            color: #222;
+        }
+
+        .patientBox button,
+        .bookingButton {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 15px 24px;
+            background: #191919;
+            color: white;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .patientBox button:hover,
+        .bookingButton:hover {
+            background: #51463e;
+        }
+
+        .reviewSection {
+            padding: 18px 0;
+            border-bottom: 1px solid #d8cec1;
+            overflow-wrap: anywhere;
+        }
+
+        .reviewSection p {
+            white-space: pre-wrap;
+            line-height: 1.7;
+        }
+
+        .patientError {
+            color: #9c2929;
+            margin-top: 15px;
+        }
+
+        .patientStatus {
+            display: inline-block;
+            padding: 7px 14px;
+            background: #e6dfd5;
+            border-radius: 20px;
+            margin: 12px 0;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 700px) {
+            .patientBox {
+                margin: 90px 15px 40px;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navigation">
+    <a class="logo" href="/">AESTHETIC ISLAND</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/#consultation">Consultation</a>
+        <a href="dashboard.html">NP Portal</a>
+    </div>
+</nav>
+
+<main class="patientBox">
+
+    <section id="loginSection">
+        <span class="eyebrow">PATIENT PORTAL</span>
+        <h1>Welcome Back.</h1>
+        <p>
+            Enter the phone number you submitted with your
+            consultation and your private access code.
+        </p>
+
+        <form id="patientLoginForm">
+            <label for="patientPhone">Phone Number</label>
+            <input
+                id="patientPhone"
+                type="tel"
+                placeholder="(555) 123-4567"
+                autocomplete="tel"
+                required
+            >
+
+            <label for="patientCode">Private Access Code</label>
+            <input
+                id="patientCode"
+                type="password"
+                placeholder="Enter your access code"
+                autocomplete="off"
+                required
+            >
+
+            <button id="loginButton" type="submit">
+                VIEW MY CONSULTATION
+            </button>
+
+            <p id="loginError"
+               class="patientError"
+               role="alert"></p>
+        </form>
+    </section>
+
+    <section id="consultationSection" hidden>
+        <span class="eyebrow">YOUR PERSONALIZED REVIEW</span>
+        <h1 id="welcomeName">Welcome Back</h1>
+
+        <p>
+            Consultation Status:
+            <span id="patientStatus" class="patientStatus"></span>
+        </p>
+
+        <div class="reviewSection">
+            <h3>Your Concern</h3>
+            <p id="patientConcern"></p>
+        </div>
+
+        <div class="reviewSection">
+            <h3>Your Message</h3>
+            <p id="patientDetails"></p>
+        </div>
+
+        <div id="pendingSection" class="reviewSection" hidden>
+            <h3>Awaiting Professional Review</h3>
+            <p>
+                Thank you for submitting your consultation.
+                Eva will review your concerns and provide
+                personalized treatment options.
+                Please check back later.
+            </p>
+        </div>
+
+        <div id="reviewSection" hidden>
+            <div class="reviewSection">
+                <h3>A Message from Eva Israilova, NP</h3>
+                <p id="evaMessage"></p>
+            </div>
+
+            <div class="reviewSection">
+                <h3>Recommended Treatments</h3>
+                <p id="evaTreatments"></p>
+            </div>
+
+            <div class="reviewSection">
+                <h3>Treatment Prices</h3>
+                <p id="evaPrices"></p>
+            </div>
+
+            <a
+                class="bookingButton"
+                id="bookingLink"
+                href="#"
+                hidden
+            >
+                BOOK YOUR APPOINTMENT
+            </a>
+        </div>
+
+        <p id="consultationError"
+           class="patientError"
+           role="alert"></p>
+
+        <button id="refreshButton" type="button">
+            REFRESH MY REVIEW
+        </button>
+
+        <button id="logoutButton" type="button">
+            LOG OUT
+        </button>
+    </section>
+
+</main>
+
+<footer>
+    <h2>AESTHETIC ISLAND</h2>
+    <p>Beauty, on your terms.</p>
+    <p>© 2026 Aesthetic Island · Capstone Project</p>
+</footer>
+
+<script src="patient.js"></script>
+</body>
+</html>

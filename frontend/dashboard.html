@@ -1,48 +1,59 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Aesthetic Island Dashboard</title>
-
-    <link rel="stylesheet" href="style.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NP Dashboard | Aesthetic Island</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
-
 <body>
 
-    <!-- dashboard navigation -->
-    <nav>
-        <h2>AESTHETIC ISLAND</h2>
+<nav class="navigation">
+    <a class="logo" href="/">AESTHETIC ISLAND</a>
+    <div class="links">
+        <a href="/">View Website</a>
+        <button id="logoutButton" class="logoutButton">Logout</button>
+    </div>
+</nav>
 
-        <div class="links">
-            <a href="/">Home</a>
-            <a href="/dashboard.html">Dashboard</a>
+<main class="dashboardPage">
+    <span class="eyebrow">AESTHETIC ISLAND / PROFESSIONAL PORTAL</span>
+    <h1>Consultation Dashboard</h1>
+    <p>Review client concerns and manage consultation requests.</p>
+
+    <div class="stats">
+        <div class="statCard">
+            <span>TOTAL</span>
+            <strong id="totalCount">0</strong>
         </div>
-    </nav>
-
-    <!-- dashboard homepage -->
-    <section class="consultation">
-
-        <h2>Nurse Practitioner Dashboard</h2>
-
-        <p class="formIntro">
-            Review test consultation submissions.
-        </p>
-
-        <!-- show saved consultations -->
-        <div id="consultationList">
-            Loading consultations...
+        <div class="statCard">
+            <span>PENDING</span>
+            <strong id="pendingCount">0</strong>
         </div>
+        <div class="statCard">
+            <span>REVIEWED</span>
+            <strong id="reviewedCount">0</strong>
+        </div>
+        <div class="statCard">
+            <span>COMPLETED</span>
+            <strong id="completedCount">0</strong>
+        </div>
+    </div>
 
-    </section>
+    <div class="dashboardHeader">
+        <h2>Client Consultations</h2>
+        <select id="statusFilter">
+            <option value="All">All Consultations</option>
+            <option value="Pending">Pending</option>
+            <option value="Reviewed">Reviewed</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
 
-    <!-- dashboard javascript -->
-    <script src="dashboard.js"></script>
+    <div id="consultationList">Loading consultations...</div>
+</main>
 
+<script src="/dashboard.js"></script>
 </body>
 </html>
-

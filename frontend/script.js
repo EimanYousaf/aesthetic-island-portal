@@ -1,41 +1,55 @@
 
-// find my test consultation form
-const testForm = document.getElementById("testForm");
+const form = document.getElementById("clientForm");
+const message = document.getElementById("formMessage");
+const button = document.getElementById("submitButton");
+const resultCard = document.getElementById("resultCard");
 
-// run this when the test form is submitted
-testForm.addEventListener("submit", async function(event) {
-
-    // stop the page from refreshing
+form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    // get the test concern
-    const concern = document.getElementById("testConcern").value;
+    const formData = new FormData(form);
+    const photo = document.getElementById("photo").files[0];
 
-    // find where the result will appear
-    const resultText = document.getElementById("testResult");
+    if (photo && photo.size > 5 * 1024 * 1024) {
+        message.textContent = "Photo must be smaller than 5 MB.";
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "SUBMITTING...";
+    message.textContent = "";
+    resultCard.hidden = true;
 
     try {
-
-        // send the test concern to my backend
         const response = await fetch("/api/consultation", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                concern: concern
-            })
+            body: formData
         });
 
-        // read the backend response
-        const result = await response.json();
+        const data = await response.json();
 
-        // show the result on my website
-        resultText.textContent = result.message || result.error;
+        if (!response.ok) {
+            throw new Error(data.error || "Submission failed.");
+        }
+
+        document.getElementById("resultId").textContent =
+            "Consultation #" + data.id;
+
+        document.getElementById("resultTreatment").textContent =
+            data.treatment;
+
+        resultCard.hidden = false;
+        form.reset();
+
+        resultCard.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
 
     } catch (error) {
-
-        // show a message if the backend is unavailable
-        resultText.textContent = "could not connect to backend";
+        message.textContent = error.message;
+    } finally {
+        button.disabled = false;
+        button.textContent = "SUBMIT CONSULTATION";
     }
 });

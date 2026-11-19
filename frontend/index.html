@@ -1,267 +1,181 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Aesthetic Island</title>
-
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aesthetic Island | Beauty, on your terms</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
-
 <body>
 
-    <!-- this is my navigation bar -->
-    <nav>
-        <h2>AESTHETIC ISLAND</h2>
+<nav class="navigation">
+    <a class="logo" href="/">AESTHETIC ISLAND</a>
+    <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#treatments">Treatments</a>
+        <a href="#consultation">Consultation</a>
+        <a href="/dashboard.html">NP Portal</a>
+    </div>
+</nav>
 
-        <div class="links">
-            <a href="#home">Home</a>
-            <a href="#about">How It Works</a>
-            <a href="#consultation">Consultation</a>
-        </div>
-    </nav>
+<section id="home" class="home">
+    <div class="homeText">
+        <span class="eyebrow">WELCOME TO AESTHETIC ISLAND</span>
+        <h1>Beauty,<br><em>on your terms.</em></h1>
+        <p>
+            Your beauty journey deserves a personal touch.
+            Explore aesthetic treatments and skincare options
+            with professional guidance.
+        </p>
+        <a class="mainButton" href="#consultation">
+            START YOUR CONSULTATION
+        </a>
+        <p class="smallText">A personalized approach to confidence.</p>
+    </div>
 
-
-    <!-- this is my homepage -->
-    <section id="home" class="home">
-
-        <div class="homeText">
-
-            <h1>Beauty, on your terms.</h1>
-
-            <p>
-                A more personal way to explore
-                aesthetic treatments and skincare.
-            </p>
-
-            <a href="#consultation" class="mainButton">
-                Explore Consultation
-            </a>
-
-        </div>
-
-
-        <!-- this is my homepage picture -->
-        <div class="homeImage">
-
-            <img src="/images/hero.jpg"
-                 alt="Aesthetic Island featured model">
-
-            <!-- this is my featured client caption -->
-            <div class="photoCaption">
-
+    <div class="homeImage">
+        <img src="/images/hero.jpg" alt="Aesthetic Island featured client">
+        <div class="photoCaption">
+            <div>
                 <h3>ALYSSA GRASSIE</h3>
-
-                <p>
-                    American Social Media Influencer,
-                    Model &amp; Reality Television Personality
-                </p>
-
-                <p class="clientText">Our Trusted Client</p>
-
+                <p>Featured Aesthetic Island Client</p>
             </div>
-
+            <span>01 / BEAUTY</span>
         </div>
+    </div>
+</section>
 
-    </section>
+<div class="marquee">
+    YOUR BEAUTY &nbsp; · &nbsp; YOUR CONFIDENCE &nbsp; · &nbsp;
+    YOUR JOURNEY
+</div>
 
+<section id="about" class="about">
+    <span class="eyebrow">THE EXPERIENCE</span>
+    <h2>A more personal approach<br>to aesthetics.</h2>
+    <p class="sectionIntro">
+        Finding the right aesthetic treatment can feel overwhelming.
+        We're making it easier to explore your options before
+        speaking with a professional.
+    </p>
 
-    <!-- this explains how my website works -->
-    <section id="about" class="about">
+    <div class="steps">
+        <article class="step">
+            <span>01</span>
+            <h3>Share your concerns</h3>
+            <p>Tell us about your skin goals and what you want to improve.</p>
+        </article>
+        <article class="step">
+            <span>02</span>
+            <h3>Explore your options</h3>
+            <p>Receive general treatment information based on your concerns.</p>
+        </article>
+        <article class="step">
+            <span>03</span>
+            <h3>Professional review</h3>
+            <p>A nurse practitioner can review your submitted information.</p>
+        </article>
+    </div>
+</section>
 
-        <h2>How it works</h2>
+<section id="treatments" class="treatments">
+    <span class="eyebrow">DISCOVER YOUR OPTIONS</span>
+    <h2>Explore our treatments.</h2>
+    <p class="sectionIntro">
+        Learn about popular aesthetic treatments and what they may help with.
+    </p>
 
-        <div class="steps">
+    <div class="treatmentGrid">
+        <article class="treatmentCard">
+            <span>01 / INJECTABLES</span>
+            <h3>Botox</h3>
+            <p>May help soften certain expression lines and wrinkles.</p>
+        </article>
+        <article class="treatmentCard">
+            <span>02 / SKINCARE</span>
+            <h3>Hydrating Facials</h3>
+            <p>Designed to refresh and hydrate the skin.</p>
+        </article>
+        <article class="treatmentCard">
+            <span>03 / SKIN RENEWAL</span>
+            <h3>Microneedling</h3>
+            <p>May improve the appearance of some fine lines and texture.</p>
+        </article>
+        <article class="treatmentCard">
+            <span>04 / COMPLEXION</span>
+            <h3>Chemical Peels</h3>
+            <p>May help improve the appearance of uneven skin tone.</p>
+        </article>
+    </div>
+</section>
 
-            <!-- first step -->
-            <div class="step">
+<section id="consultation" class="consultation">
+    <span class="eyebrow">YOUR JOURNEY STARTS HERE</span>
+    <h2>Let's get to know you.</h2>
+    <p class="formIntro">
+        Tell us about your concerns and explore your options.
+    </p>
 
-                <h3>01</h3>
+    <form id="clientForm">
+        <label for="name">Full Name</label>
+        <input id="name" name="name" type="text"
+               maxlength="100" placeholder="Your full name" required>
 
-                <h4>Tell us about your skin</h4>
+        <label for="phone">Phone Number</label>
+        <input id="phone" name="phone" type="tel"
+               maxlength="25" placeholder="Your phone number" required>
 
-                <p>
-                    Share your concerns and upload
-                    a photo for review.
-                </p>
+        <label for="concern">Your Main Concern</label>
+        <select id="concern" name="concern" required>
+            <option value="">Select your concern</option>
+            <option value="dry skin">Dry Skin</option>
+            <option value="acne">Acne</option>
+            <option value="fine lines">Fine Lines</option>
+            <option value="uneven skin tone">Uneven Skin Tone</option>
+        </select>
 
-            </div>
+        <label for="photo">Upload Photo (Optional)</label>
+        <input id="photo" name="photo" type="file"
+               accept="image/jpeg,image/png">
+        <p class="formNote">JPG or PNG, maximum 5 MB.</p>
 
+        <label class="consent">
+            <input type="checkbox" id="consent" required>
+            <span>
+                I understand that treatment information is educational,
+                not a diagnosis, and professional review is required.
+            </span>
+        </label>
 
-            <!-- second step -->
-            <div class="step">
-
-                <h3>02</h3>
-
-                <h4>Personal review</h4>
-
-                <p>
-                    A nurse practitioner reviews
-                    your concerns.
-                </p>
-
-            </div>
-
-
-            <!-- third step -->
-            <div class="step">
-
-                <h3>03</h3>
-
-                <h4>Find your options</h4>
-
-                <p>
-                    Explore treatments, products,
-                    and pricing recommended for you.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- this is my consultation section -->
-    <section id="consultation" class="consultation">
-
-        <h2>Let's get started.</h2>
-
-        <p class="formIntro">
-            Tell us what you're looking for.
+        <p class="formNote">
+            Capstone prototype: please use fictional names and phone
+            numbers, and do not upload real patient photographs.
         </p>
 
+        <button id="submitButton" type="submit">
+            SUBMIT CONSULTATION
+        </button>
+        <p id="formMessage" role="status" aria-live="polite"></p>
+    </form>
 
-        <!-- this is my client form -->
-        <form id="clientForm">
+    <div id="resultCard" class="resultCard" hidden>
+        <span class="eyebrow">YOUR CONSULTATION</span>
+        <h3>Thank you for submitting.</h3>
+        <p id="resultId"></p>
+        <h4>General treatment information</h4>
+        <p id="resultTreatment"></p>
+        <p>Your consultation is pending professional review.</p>
+    </div>
+</section>
 
-            <!-- client name -->
-            <label for="name">Full Name</label>
+<footer>
+    <h2>AESTHETIC ISLAND</h2>
+    <p>Beauty, on your terms.</p>
+    <p>© 2026 Aesthetic Island · Capstone Project</p>
+</footer>
 
-            <input type="text"
-                   id="name"
-                   name="name"
-                   placeholder="Your name"
-                   required>
-
-
-            <!-- client phone number -->
-            <label for="phone">Phone Number</label>
-
-            <input type="tel"
-                   id="phone"
-                   name="phone"
-                   placeholder="Your phone number"
-                   required>
-
-
-            <!-- client concerns -->
-            <label for="concern">Your Concerns</label>
-
-            <textarea id="concern"
-                      name="concern"
-                      rows="4"
-                      placeholder="What would you like help with?"
-                      required></textarea>
-
-
-            <!-- client photo -->
-            <label for="photo">Upload a Photo</label>
-
-            <input type="file"
-                   id="photo"
-                   name="photo"
-                   accept="image/*"
-                   required>
-
-
-            <!-- real submissions are not ready yet -->
-            <button type="submit" disabled>
-                Consultation Submissions Coming Soon
-            </button>
-
-            <p class="formNote">
-                Online submissions are not yet available.
-                Please do not enter or upload personal information.
-            </p>
-
-        </form>
-
-
-        <!-- this is my test consultation section -->
-        <div class="testConsultation">
-
-            <h3>Test Consultation</h3>
-
-            <p>
-                This section is for testing my backend.
-                Do not enter real client information.
-            </p>
-
-
-            <!-- this form sends test data to python -->
-            <form id="testForm">
-
-                <label for="testConcern">
-                    Choose a test concern
-                </label>
-
-                <select id="testConcern" required>
-
-                    <option value="">
-                        Select a concern
-                    </option>
-
-                    <option value="dry skin">
-                        Dry Skin
-                    </option>
-
-                    <option value="acne">
-                        Acne
-                    </option>
-
-                    <option value="fine lines">
-                        Fine Lines
-                    </option>
-
-                    <option value="uneven skin tone">
-                        Uneven Skin Tone
-                    </option>
-
-                </select>
-
-
-                <!-- this button tests my backend -->
-                <button type="submit">
-                    Test Consultation
-                </button>
-
-            </form>
-
-
-            <!-- this displays my backend response -->
-            <p id="testResult" aria-live="polite"></p>
-
-        </div>
-
-    </section>
-
-
-    <!-- this is my footer -->
-    <footer>
-
-        <h2>AESTHETIC ISLAND</h2>
-
-        <p>© 2026 Aesthetic Island</p>
-
-    </footer>
-
-
-    <!-- this connects my javascript -->
-    <script src="script.js"></script>
-
+<script src="/script.js"></script>
 </body>
 </html>

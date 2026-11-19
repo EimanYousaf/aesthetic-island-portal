@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NP Login | Aesthetic Island</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav class="navigation">
+    <a class="logo" href="/">AESTHETIC ISLAND</a>
+    <div class="links">
+        <a href="/">Back to Home</a>
+    </div>
+</nav>
+
+<main class="loginPage">
+    <div class="loginBox">
+        <span class="eyebrow">PROFESSIONAL PORTAL</span>
+        <h1>Welcome back.</h1>
+        <p>Sign in to review consultations.</p>
+
+        <form id="loginForm">
+            <label for="password">NP Password</label>
+            <input id="password" type="password" required>
+            <button type="submit">SIGN IN</button>
+            <p id="loginMessage" role="status"></p>
+        </form>
+    </div>
+</main>
+
+<script>
+document.getElementById("loginForm").addEventListener(
+    "submit", async function(event) {
+        event.preventDefault();
+
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("loginMessage");
+
+        try {
+            const response = await fetch("/api/login", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({password: password})
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                window.location.href = "/dashboard.html";
+            } else {
+                message.textContent = result.error;
+            }
+        } catch (error) {
+            message.textContent = "Unable to connect to server.";
+        }
+    }
+);
+</script>
+</body>
+</html>

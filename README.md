@@ -1,5 +1,5 @@
 # Aesthetic Island Aesthetic Review & Recommendation Portal
-https://eimanyousaf.github.io/aesthetic-island-portal/frontend/
+https://aesthetic-island-portal.onrender.com/
 
 ## Project Overview
 
